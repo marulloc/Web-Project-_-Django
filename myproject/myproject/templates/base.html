@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700" rel="stylesheet">
+        <link href="https://fontastic.s3.amazonaws.com/YKLiEB5nKeTck7NdBGoGKY/icons.css" rel="stylesheet">
+
+    <style>
+        #Login {
+            border-bottom: 1px solid  #ffe524;
+            background-color:  #ffe524;
+            padding: 10px
+        }
+
+        #card {
+            flex: 500px;
+            height: 200px;
+            text-align: center;
+            margin: 50px;
+            background:  #fcfcfc
+
+
+        }
+
+        #card-group {
+        flex: auto;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="Login" style="text-align:right">
+        {% if user.is_active %}
+        <a class="btn btn-light btn-sm" href="{%url 'logout' %}" role="button">로그아웃</a>
+        {% else %}
+        <a class="btn btn-light btn-sm" href="{%url 'login' %}" role="button">로그인</a>
+        <a class="btn btn-light btn-sm" href="{%url 'signup' %}" role="button">회원가입</a>
+        {% endif %}
+    </div>
+    user : {{user.id}}<br><br><br>
+    <!--여기까지 상단 -->
+
+
+
+    <!--여기에 제목 삽입-->
+    <h1 style="text-align: center">
+        {% block title %}
+        {% endblock %}
+    </h1><br><br><br><br>
+
+    <!--여기에 컨텐츠 삽입-->
+    {% block contents %}
+
+
+
+    {% endblock %}
+</body>
+
+</html>
