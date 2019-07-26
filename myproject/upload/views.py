@@ -1,13 +1,13 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import UploadFileForm
 from .models import UploadFileModel
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import mainapp.views
-import mainapp.models
-
+from mainapp.models import category 
+from django.core.paginator import Paginator
 
 #originalprice만 변경하면 된다. 내가 등록한 물건에서 가져오기
 
@@ -18,13 +18,26 @@ def upload_file(request):
         form = UploadFileForm(request.POST, request.FILES)
 
         if form.is_valid():
+            categorys = category.objects.all()
+
             post = form.save(commit=False)
             post.user_id = request.user.username
-            post.originalprice = 9999
+            
             post.productimg_name = str(post.pbrand)+''+str(post.pitem)
+
+            for ctg in categorys:
+                if(ctg.brand == post.pbrand):
+                    if(ctg.item == post.pitem):
+                        post.originalprice = ctg.originalprice
+                        post.productimg = ctg.file
             post.save()
             ufl = UploadFileModel.objects
-            return render(request, 'home.html', {'ufl': ufl})
+
+            product_list = UploadFileModel.objects.all()
+            paginator = Paginator(product_list, 6)
+            page = request.GET.get('page')
+            posts = paginator.get_page(page)
+            return redirect('home')
     else:
         form = UploadFileForm()
     return render(request, 'upload.html', {'form': form})

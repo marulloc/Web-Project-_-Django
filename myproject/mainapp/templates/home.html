@@ -11,22 +11,102 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
+    <style>
+        #Login {
+            border-bottom: 1px solid gray;
+            background-color: darkslategray;
+            padding: 10px
+        }
+    </style>
+
 </head>
 
+<div id="Login" style="text-align:right">
+    {% if user.is_active %}
+    <a class="btn btn-light btn-sm" href="{%url 'logout' %}" role="button">로그아웃</a>
+    {% else %}
+    <a class="btn btn-light btn-sm" href="{%url 'login' %}" role="button">로그인</a>
+    <a class="btn btn-light btn-sm" href="{%url 'signup' %}" role="button">회원가입</a>
+    {% endif %}
+</div>
+user: {{user.username}}<br><br><br><br>
 
-<h1>hello world!!!</h1>
-<a class="btn btn-light btn-sm" href="{%url 'login' %}" role="button">로그인</a>
-<a class="btn btn-light btn-sm" href="{%url 'signup' %}" role="button">회원가입</a>
-<a class="btn btn-light btn-sm" href="{%url 'logout' %}" role="button">로그아웃</a>
-<br><br><br><br>
+{% block contents %}
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{%url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    브랜드
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% for category in categorys.all %}
+                        <p><a class="dropdown-item" href="{%url 'choice' category.id %}">{{category.brand}}</a></p>
+                         {% endfor %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{%url 'home' %}">전체 상품 보기</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+                <li>
+                        <a class="btn btn-dark btn-sm" href="{%url 'upload_file' %}" role="button">상품등록</a>
+
+                </li>
+              </ul>
+
+            </div>
+          </nav>
+
+    <!--컨텐츠 block사이에 입력하면 됩니다.-->
+
+    선택된 브랜드: {{selectedcategory.brand}}
+
+    <div class="card-group">
+        {% for u in posts %}
+            <div class="card" style="width: 18rem;">
+                <img src="{{u.productimg.url}}" height="300" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">{{u.pbrand}}</h5>
+                    <h5 class="card-title">{{u.pitem}}</h5>
+                    <p class="card-text">Some quick example text</p>
+                    <a href="{%url 'detail' %}" class="btn btn-primary stretched-link">Go somewhere</a>
+                </div>
+            </div>
+        {%endfor%}
+    </div>
+
+    <div class="container">
+
+        {% if posts.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{posts.previous_page_number}}">Prev</a>
+        {% endif %}
+    
+        <span>{{posts.number}}</span>
+        <span> of</span>
+        <span> {{posts.paginator.num_pages}}</span>
+    
+        {%if posts.has_next%}
+        <a href="?page={{posts.next_page_number}}">Next</a>
+        <a href="?page={{posts.paginator.num_pages}}">Last</a>
+        {% endif %}
+    </div>
+
+    {%endblock%}
 
 
 
-{% for u in ufl.all %}
-<p>{{u.pbrand}}</p>
-<p>{{u.pitem}}</p>
-<img src="{{u.file.url}}" height="300" alt="">
-{%endfor%}
-
-
-<a class="btn btn-dark btn-sm" href="{%url 'upload_file' %}" role="button">상품등록</a>
