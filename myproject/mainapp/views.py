@@ -13,7 +13,7 @@ def home(request):
 
     #상품 4개를 한 페이지에 출력
     product_list = UploadFileModel.objects.all()
-    paginator = Paginator(product_list, 6)
+    paginator = Paginator(product_list, 8)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
   
@@ -30,7 +30,7 @@ def choice(request,category_id):
         selectedcategory = None
         ufl = UploadFileModel.objects   
 
-    paginator = Paginator(ufl, 6)
+    paginator = Paginator(ufl, 8)
     page = request.GET.get('page')
     posts = paginator.get_page(page) 
     categorys = category.objects
@@ -39,5 +39,8 @@ def choice(request,category_id):
     return render(request,'home.html',{'selectedcategory':selectedcategory,'ufl':ufl, 'posts':posts,'categorys':categorys})
 
 
-def detail(request):
-    return render(request,'detail.html')
+def detail(request, product_id):
+    details = get_object_or_404(UploadFileModel, pk=product_id)
+    return render(request,'detail.html',{'details':details})
+
+

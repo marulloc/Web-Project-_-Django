@@ -7,7 +7,7 @@ class UploadFileModel(models.Model):
 
     pbrand = models.CharField(max_length=20,null=True)
     pitem = models.CharField(max_length=20, null=True)
-    productimg_name =models.CharField(max_length =40, null=True)
+    productimg_name = models.CharField(max_length =40, null=True)
  
     originalprice = models.IntegerField(null=True)
     lowerlimit = models.IntegerField(null=True)

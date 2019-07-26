@@ -1,1 +1,37 @@
-<h1>신난다!</h1>
+{% extends 'base.html' %}
+
+<body>
+        <!--제목 block사이에 입력하면 됩니다.-->
+        {% block title %}
+        상품 상세 페이지
+        {% endblock %}
+        <!--타이틀 끝-->
+    
+        <!--컨텐츠 block사이에 입력하면 됩니다.-->
+        
+        {% block contents %}
+
+        원하는대로 꾸며주시면 됩니다~~
+
+        <h1>{{details.pbrand}}</h1>
+        <h3>{{details.pitem}}</h3>
+
+        <img src="{{details.productimg.url}}" height="300" alt=""><br>
+        <img src="{{details.file.url}}" height="300" alt=""><br>
+        기프티콘(바코드)은 여기에 안할거에요. 
+        그냥 확인용 이후 결제페이지에서 나타날 예정 
+        만드실때 걸리적거리시면 삭제하셔도 됩니다.<br><br>
+
+        하한가:<p>{{details.lowerlimit}}</p><br>
+        원가:<p>{{originalprice}}</p><br>
+        작성자:<p>{{details.user_id}}</p>
+        
+        <a class="btn btn-primary" href="#" role="button">구매</a>
+        <a class="btn btn-primary" href="{%url 'upload_file' %}" role="button">상품등록</a>
+        <a class="btn btn-primary" href="{%url 'home' %}" role="button">돌아가기</a>
+    
+    
+        {%endblock%}
+        <!--컨텐츠 끝-->
+    
+    </body>

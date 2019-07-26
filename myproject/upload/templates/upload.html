@@ -298,19 +298,15 @@
 </head>
 
 <body>
-  <div id="Login" style="text-align:right">
-    {% if user.is_active %}
-    <a class="btn btn-light btn-sm" href="{%url 'logout' %}" role="button">로그아웃</a>
-    {% else %}
-    <a class="btn btn-light btn-sm" href="{%url 'login' %}" role="button">로그인</a>
-    <a class="btn btn-light btn-sm" href="{%url 'signup' %}" role="button">회원가입</a>
-    {% endif %}
-  </div>
-  user : {{user.id}}{{user.username}}<br><br><br>
+  {% extends 'base.html' %}
+
+  
+  {% block title %}
+  <h1>상품 등록 페이지</h1>
+  {%endblock%}
+
+  {% block contents %}
   <main class="addproduct">
-    <h1>상품 등록 페이지</h1>
-
-
     <div class="container">
       <fieldset>
 
@@ -352,28 +348,6 @@
       </fieldset>
     </div>
   </main>
-
-  <!--
-  <form method="post" enctype="multipart/form-data" novalidate>{% csrf_token %}
-    <tr>
-      <th><label for="id_pbrand">brand:</label></th>
-      <td><input type="text" name="pbrand" maxlength="20" required id="id_pbrand"></td>
-    </tr>
-    <tr>
-      <th><label for="id_pitem">item:</label></th>
-      <td><input type="text" name="pitem" maxlength="20" required id="id_pitem"></td>
-    </tr>
-
-    <tr>
-      <th><label for="id_file">File:</label></th>
-      <td><input type="file" name="file" id="id_file"></td>
-    </tr>
-
-    <tr>
-      <th><label for="id_lowerlimit">Lower limit:</label></th>
-      <td><input type="number" name="lowerlimit" required id="id_lowerlimit"></td>
-    </tr>
-    <button type="submit">Upload</button>
-  </form>
--->
+  {%endblock%}
+  
 </body>
