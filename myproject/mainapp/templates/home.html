@@ -21,8 +21,8 @@
                     브랜드
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% for category in categorys.all %}
-                        <p><a class="dropdown-item" href="{%url 'choice' category.id %}">{{category.brand}}</a></p>
+                        {% for bfc in brand_for_categorys.all %}
+                        <p><a class="dropdown-item" href="{%url 'choice' bfc.id %}">{{bfc.brandname}}</a></p>
                          {% endfor %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{%url 'home' %}">전체 상품 보기</a>

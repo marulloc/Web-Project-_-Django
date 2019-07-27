@@ -46,6 +46,7 @@
     <div id="Login" style="text-align:right">
         {% if user.is_active %}
         <a class="btn btn-light btn-sm" href="{%url 'logout' %}" role="button">로그아웃</a>
+        <a class="btn btn-light btn-sm" href="{%url 'mypage' %}" role="button">마페</a>
         {% else %}
         <a class="btn btn-light btn-sm" href="{%url 'login' %}" role="button">로그인</a>
         <a class="btn btn-light btn-sm" href="{%url 'signup' %}" role="button">회원가입</a>

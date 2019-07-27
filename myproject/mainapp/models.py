@@ -12,3 +12,10 @@ class category(models.Model):
 
     def __str__(self):
         return (str(self.brand)+''+str(self.item))
+
+
+class brand_for_category(models.Model):
+    brandname= models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.brandname
