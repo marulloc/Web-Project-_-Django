@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
 
+
+
+
+
+
+
 {% block contents %}
     
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
-            </button>
+            </button><br><br>
           
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
+              <ul class="navbar-nav">
                 <li class="nav-item active">
                   <a class="nav-link" href="{%url 'home' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="#">About</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    브랜드
+                    Brand
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% for bfc in brand_for_categorys.all %}
@@ -31,10 +37,10 @@
                 <li class="nav-item">
                   <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
-                <li>
-                        <a class="btn btn-dark btn-sm" href="{%url 'upload_file' %}" role="button">상품등록</a>
-
-                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{%url 'upload_file' %}"><span class="glyphicon glyphicon-gift"
+                          aria-hidden="true"></span> Register</a>
+              </li>
               </ul>
 
             </div>
@@ -46,7 +52,7 @@
 
     <div class="card-group">
         {% for u in posts %}
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <img src="{{u.productimg.url}}" height="300" alt="">
                 <div class="card-body">
                     <h5 class="card-title">{{u.pbrand}}</h5>
