@@ -25,13 +25,13 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           {% for bfc in brand_for_categorys.all %}
-          <p><a class="dropdown-item" href="{%url 'choice' bfc.id %}">{{bfc.brandname}}</a></p>
+          <p><a class="dropdown-item" href="{%url 'home' bfc.id 99999 99999%}">{{bfc.brandname}}</a></p>
           {% endfor %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{%url 'home' %}">전체 상품 보기</a>
         </div>
-      </li>
 
+    </li>
       <li class="nav-item">
         <a class="nav-link" href="{%url 'upload_file' %}"><span class="glyphicon glyphicon-gift"
             aria-hidden="true"></span> Register</a>
@@ -43,9 +43,7 @@
 
 
 선택된 브랜드: {{selectedcategory.brand}}
-
 <br>
-
 <select id="sort-select" onchange="location = this.value;">
   <option class="sort" value="/">정렬방식</option>
   <option class="sort-date" value="?sort=date">최신순</option>
@@ -55,10 +53,8 @@
 
 
 <!--Detail-->
-
-
 {% if details %}
-  {%ifequal details.saletype "경매"%}
+  {%ifequal details.saletype "경매"%} <!--경매-->
   <div class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
       <div class="row no-gutters">
         <div class="col-md-4">
@@ -89,7 +85,7 @@
     </div>
 
 
-  {%else%}
+  {%else%} <!--급매-->
   <div class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
       <div class="row no-gutters">
         <div class="col-md-4">
@@ -124,7 +120,7 @@
       <h5 class="card-title">{{u.pbrand}}</h5>
       <h5 class="card-title">{{u.pitem}}</h5>
       <p class="card-text">{{u.lowerlimit}}</p>
-      <a href="{%url 'detail' u.id %}" class="button">Go somewhere</a>
+      <a href="{%url 'home' 99999 u.id 99999 %}" class="button">Go somewhere</a>
     </div>
   </div>
   {%endfor%}

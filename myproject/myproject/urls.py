@@ -8,7 +8,8 @@ import upload.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',mainapp.views.home,name='home'),
+    path('',mainapp.views.main.home,name='home'),
+    path('home/<int:category_id>/<int:product_id>/<int:sale_id>',mainapp.views.main.home,name='home'),
     path('upload/',upload.views.upload_file, name='upload_file'),
     path('mainapp/',include('mainapp.urls')),
     path('accounts/',include('accounts.urls')),
