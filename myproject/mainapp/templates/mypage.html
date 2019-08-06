@@ -8,6 +8,9 @@
 {% block contents %}
 
 
+비밀번호변경
+<button><a href="{% url 'change_pw' %}" >Change</a></button>
+
 내가올린상품
 <div class="card-group">
 {% for u in ufl.all %}

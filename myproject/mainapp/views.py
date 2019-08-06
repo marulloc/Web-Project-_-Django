@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from upload.forms import UploadFileForm
 from upload.models import UploadFileModel
 from .models import category,brand_for_category
@@ -60,7 +60,26 @@ def choice2(request,saletype_id): #판매방식 선택
 
 def detail(request, product_id):
     details = get_object_or_404(UploadFileModel, pk=product_id)
-    return render(request,'detail.html',{'details':details})
+
+    ufl = UploadFileModel.objects
+    brand_for_categorys = brand_for_category.objects
+    sort = request.GET.get('sort','')
+
+    if sort == 'lowprice':
+        ufl = UploadFileModel.objects.all().order_by('lowerlimit')
+    elif sort == 'date':
+        ufl = UploadFileModel.objects.all().order_by('pub_date')
+    elif sort == 'highprice':
+        ufl = UploadFileModel.objects.all().order_by('-lowerlimit')
+    else:
+        ufl =  ufl = UploadFileModel.objects.all()
+
+    product_list = ufl
+    paginator = Paginator(product_list, 10)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+    
+    return render(request,'home.html',{'ufl':ufl, 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details})
 
 
 @csrf_exempt
