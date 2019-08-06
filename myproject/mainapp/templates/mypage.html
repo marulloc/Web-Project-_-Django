@@ -9,13 +9,20 @@
 
 
 내가올린상품
+<div class="card-group">
 {% for u in ufl.all %}
-<h1>{{u.pbrand}}</h1>
-<h2>{{u.pitem}}</h2>
-<h3>{{u.lowerlimit}}</h3>
-<img src="{{u.file.url}}"><br>
-<img src="{{u.productimg.url}}"><br><br><br><br>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{u.pbrand}}</h5>
+        <h5 class="card-title">{{u.pitem}}</h5>
+        <p class="card-text">{{u.lowerlimit}}</p>
+        <img src="{{u.file.url}}"width="100" height="100"><br>
+        <img src="{{u.productimg.url}}"width="100" height="100"><br>
+
+    </div>
+</div>
 {%endfor%}
+</div>
 
     <!--컨텐츠 block사이에 입력하면 됩니다.-->
 

@@ -8,8 +8,9 @@ from django.contrib.auth.decorators import login_required
 import mainapp.views
 from mainapp.models import category 
 from django.core.paginator import Paginator
+from django.utils import timezone
 
-#originalprice만 변경하면 된다. 내가 등록한 물건에서 가져오기
+
 
 @login_required
 def upload_file(request):
@@ -22,7 +23,7 @@ def upload_file(request):
 
             post = form.save(commit=False)
             post.user_id = request.user.username
-            
+            post.pub_date=timezone.datetime.now()
             post.productimg_name = str(post.pbrand)+''+str(post.pitem)
 
             for ctg in categorys:

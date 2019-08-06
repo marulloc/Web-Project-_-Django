@@ -13,9 +13,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700" rel="stylesheet">
-        <link href="https://fontastic.s3.amazonaws.com/YKLiEB5nKeTck7NdBGoGKY/icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700" rel="stylesheet">
+    <link href="https://fontastic.s3.amazonaws.com/YKLiEB5nKeTck7NdBGoGKY/icons.css" rel="stylesheet">
 
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -27,10 +27,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Saira+Stencil+One&display=swap" rel="stylesheet">
     <style>
-       
-        html{
-            margin: 5rem;
-        }
+ 
 
         #Login {
             border-bottom: 1px solid black;
@@ -69,6 +66,7 @@
             background-color: white;
             display: flex;
             justify-content: center;
+            margin: 10rem;
         }
 
         .nav-item {
@@ -91,72 +89,101 @@
             height: 200px;
             text-align: center;
             margin: 50px;
-            background:  #fcfcfc;
-            
+            background: #fcfcfc;
+
         }
+
         a {
             text-align: center;
             color: black;
 
         }
-.card-body{
-    padding: 10%;
-}
-.card-group{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 1rem;
-}
-        #card-group {
-        flex: auto;
+
+        .card-body {
+            padding: 10%;
         }
+
+        .card-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 1rem;
+            margin: 10rem;
+        }
+
+        #card-group {
+            flex: auto;
+        }
+       
+       #sort-select{
+           float: right;
+       }
+       .button{
+        background-color: white; 
+        color:black; 
+        border:3px solid #f2d500; 
+        padding: 8px 22px;
+    }
+    .container{
+        text-align: center;
+        font-size: 25px;
+    }
+    .navbar-nav{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 23rem;
+    font-size: 20px;
+}
+         
+        
     </style>
 
 
 </head>
 
 <body>
-        <div id="Login" style="clear: both">
-                <p id="hello">Hello {{user.username}} !</p>
-                {% if user.is_active %}
-                <div id="icon-button">
-                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span><a class="btn" href="{%url 'logout' %}"
-                        role="button">Logout</a>
-                </div>
-                {% else %}
-                <div id="icon-button">
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span><a class="btn" href="{%url 'login' %}"
-                        role="button">Login</a>
-                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span><a class="btn" href="{%url 'signup' %}"
-                        role="button">Signup</a>
-                </div>
-                {% endif %}
-            </div>
-        
-        
-        
-            <!--여기까지 상단 -->
-        
-        
-        
-            <!--여기에 제목 삽입-->
-            <div>
-                <h1>
-                    {% block title %}
-                    BRAND
-                    {% endblock %}
-                </h1>
-        
+    <div id="Login" style="clear: both">
+        <p id="hello">Hello {{user.username}} !</p>
+        {% if user.is_active %}
+        <div id="icon-button">
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span><a class="btn" href="{%url 'logout' %}"
+                role="button">Logout</a>
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span><a class="btn" href="{%url 'mypage' %}"
+                role="button">MyPage</a>
+        </div>
+        {% else %}
+        <div id="icon-button">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span><a class="btn" href="{%url 'login' %}"
+                role="button">Login</a>
+            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span><a class="btn" href="{%url 'signup' %}"
+                role="button">Signup</a>
+        </div>
+        {% endif %}
+    </div>
 
-        
-            <!--여기에 컨텐츠 삽입-->
-            {% block contents %}
-        
-        
-        
+
+
+    <!--여기까지 상단 -->
+
+
+
+    <!--여기에 제목 삽입-->
+    <div>
+        <h1>
+            {% block title %}
+            BRAND
             {% endblock %}
-        </body>
-        
-        </html>
+        </h1>
+
+
+
+        <!--여기에 컨텐츠 삽입-->
+        {% block contents %}
+
+
+
+        {% endblock %}
+</body>
+
+</html>
 
 </html>

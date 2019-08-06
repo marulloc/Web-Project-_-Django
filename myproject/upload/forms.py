@@ -4,7 +4,7 @@ from .models import UploadFileModel
 class UploadFileForm(forms.ModelForm):
     class Meta:
         model = UploadFileModel
-        fields = ('file','pbrand','pitem','lowerlimit')
+        fields = ('file','pbrand','pitem','lowerlimit','saletype')
         
     def __init__(self, *args, **kwargs):
         super(UploadFileForm, self).__init__(*args, **kwargs)
