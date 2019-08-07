@@ -13,13 +13,27 @@ from django.views.decorators.csrf import csrf_exempt
 #category_id -> 브랜드 선택 , product_id -> 상품 선택, sale_id -> 판매 타입 선택
 #값이 99999면 선택되지 않은 default 상태임을 의미한다.
 class main:
-    
+    @csrf_exempt
     def home( request, category_id=99999 , product_id=99999,sale_id=99999):
-        ufl = UploadFileModel.objects.all()
-        print('################')
+        print('####  START  ####')
         print(category_id ,product_id,sale_id)
-        
-    
+
+        #여기서부터 시작
+        ufl = UploadFileModel.objects.all()
+
+
+        if request.method == 'POST':
+            select_brand = request.POST['brand']
+            select_sale = request.POST['saletype']
+
+            if select_brand != 'all':
+                ufl = ufl.filter(pbrand=select_brand)
+
+                if select_sale != 'all':
+                    ufl = ufl.filter(saletype=select_sale)
+
+                    
+            
 
         if category_id != 99999:   #브랜드가 선택된다면             
             selectedcategory = get_object_or_404(brand_for_category,pk=category_id)
@@ -60,46 +74,7 @@ class main:
   
         return render(request, 'home.html',{'selectedcategory':selectedcategory, 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details})
 
-'''
-def choice(request,category_id): #브랜드별 선택
-    if category_id:
-        selectedcategory = get_object_or_404(brand_for_category,pk=category_id)
-        ufl = UploadFileModel.objects.filter(pbrand = selectedcategory.brandname)
-    else:
-        selectedcategory = None
-        ufl = UploadFileModel.objects   
 
-    paginator = Paginator(ufl, 10)
-    page = request.GET.get('page')
-    posts = paginator.get_page(page) 
-    brand_for_categorys = brand_for_category.objects
-
-    return render(request,'home.html',{'selectedcategory':selectedcategory,'ufl':ufl, 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details})
-
-
-def detail(request, product_id):
-    details = get_object_or_404(UploadFileModel, pk=product_id)
-
-    ufl = UploadFileModel.objects
-    brand_for_categorys = brand_for_category.objects
-    sort = request.GET.get('sort','')
-
-    if sort == 'lowprice':
-        ufl = UploadFileModel.objects.all().order_by('lowerlimit')
-    elif sort == 'date':
-        ufl = UploadFileModel.objects.all().order_by('pub_date')
-    elif sort == 'highprice':
-        ufl = UploadFileModel.objects.all().order_by('-lowerlimit')
-    else:
-        ufl =  ufl = UploadFileModel.objects.all()
-
-    product_list = ufl
-    paginator = Paginator(product_list, 10)
-    page = request.GET.get('page')
-    posts = paginator.get_page(page)
-    
-    return render(request,'home.html',{'ufl':ufl, 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details})
-'''
 
 @csrf_exempt
 @login_required

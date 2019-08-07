@@ -66,7 +66,7 @@
             background-color: white;
             display: flex;
             justify-content: center;
-            margin: 10rem;
+            margin: 5rem;
         }
 
         .nav-item {
@@ -122,7 +122,9 @@
         color:black; 
         border:3px solid #f2d500; 
         padding: 8px 22px;
+        
     }
+    
     .container{
         text-align: center;
         font-size: 25px;
@@ -133,14 +135,98 @@
     grid-gap: 23rem;
     font-size: 20px;
 }
-         
-        
+.pagebutton {
+  display:block;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1;
+  font-size: 15px;
+  color:#000000;
+  background-color: rgb(255, 255, 255);
+}
+@font-face {
+  font-family: neon;
+  src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/707108/neon.ttf);
+}
+
+.containers {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+    background-color: #ffffff;
+    height: 200px;
+  width: 5000px;
+
+}
+
+.neon {
+  font-family: neon;
+  color: #FB4264;
+  font-size: 9vw;
+  line-height: 9vw;
+  text-shadow: 0 0 3vw #F40A35;
+  background-color: #000000;
+  
+}
+
+.flux {
+  font-family: neon;
+  color: #426DFB;
+  font-size: 8vw;
+  line-height: 3vw;
+  text-shadow: 0 0 1vw rgb(0, 0, 0);
+  vertical-align: middle;
+  z-index:1;
+}
+
+.neon {
+  animation: neon 1s ease infinite;
+  -moz-animation: neon 1s ease infinite;
+  -webkit-animation: neon 1s ease infinite;
+}
+
+@keyframes neon {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #FED128, .5vw .5vw .1vw #806914;
+    color: #FED128;
+  }
+  50% {
+    text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
+    color: #806914;
+  }
+}
+
+.flux {
+  animation: flux 2s linear infinite;
+  -moz-animation: flux 2s linear infinite;
+  -webkit-animation: flux 2s linear infinite;
+  -o-animation: flux 2s linear infinite;
+}
+
+@keyframes flux {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw rgb(102, 67, 2), 0 0 3vw rgb(255, 159, 16), 0 0 10vw rgb(255, 171, 16), 0 0 10vw rgb(255 , 211, 16), 0 0 .4vw rgb(254, 200, 139), .5vw .5vw .1vw #805a14;
+    color: rgb(240, 229, 75);
+  }
+  50% {
+    text-shadow: 0 0 .2vw #805a08, 0 0 1.5vw #806408, 0 0 5vw #805008, 0 0 5vw #805608, 0 0 .2vw #806e08, .5vw .5vw .1vw rgb(64, 34, 10);
+    color: rgb(155, 142, 27);
+  }
+}    
     </style>
 
 
 </head>
 
 <body>
+       
+        
+        
+            <!--여기까지 상단 -->
+        
     <div id="Login" style="clear: both">
         <p id="hello">Hello {{user.username}} !</p>
         {% if user.is_active %}
@@ -161,29 +247,23 @@
     </div>
 
 
-
     <!--여기까지 상단 -->
 
 
+<br>
+    <!--여기에 제목 삽입-->{% block title %}
+    <div class="containers">
+            <br><br><br><br>
+            <a href="{%url 'home' %}" style="text-decoration: none;"><div class="flux">Jerky</div></a> {% endblock %}
+  
 
-    <!--여기에 제목 삽입-->
-    <div>
-        <h1>
-            {% block title %}
-            BRAND
-            {% endblock %}
-        </h1>
-
-
+</div>
 
         <!--여기에 컨텐츠 삽입-->
         {% block contents %}
-
-
+    
 
         {% endblock %}
+        <br><br><br><br>
 </body>
 
-</html>
-
-</html>

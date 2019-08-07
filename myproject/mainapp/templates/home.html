@@ -2,48 +2,56 @@
 
 
 
-
-
-
-
 {% block contents %}
 
-<nav class="navbar navbar-expand-lg">
+<!-- -----------------------------------------nav bar------------------------------------------------------------------------->
+<br><br><br>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="{%url 'home' %}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Brand
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          {% for bfc in brand_for_categorys.all %}
-          <p><a class="dropdown-item" href="{%url 'home' bfc.id 99999 99999%}">{{bfc.brandname}}</a></p>
-          {% endfor %}
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{%url 'home' %}">전체 상품 보기</a>
-        </div>
-
-    </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{%url 'upload_file' %}"><span class="glyphicon glyphicon-gift"
-            aria-hidden="true"></span> Register</a>
-      </li>
-    </ul>
+  <div style="border:1px ;float:left;width:25%;">
+    <a class="nav-link" href="{%url 'home' %}" style="font-size: 25px;"> Home <span class="sr-only" >(current)</span></a>
   </div>
-</nav>
+  <div style="border:1px ;float:left;width:25%;">
+    <a class="nav-link" href="#" style="font-size: 25px;">About</a>
+  </div>
+<div style="border:1px ;float:left;width:25%;">
+<a class="nav-link" onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';"
+  href="javascript:void(0)" style="font-size: 25px;" >
+  Search
+</a><div style="DISPLAY: none">
+  <div class="card" style="border:1px ;width:100%;background-color: rgba( 255, 255, 255, 1 );" >
+      <p><form action="{%url 'home' %}" method="POST">{% csrf_token %}
+        <div style="border:1px ;float:left;width:33%;">
+          Brand<br> 
+          <input type="hidden" name="brand" value="all">
+          <input type="checkbox" name="brand" value="스타벅스">스타벅스<br> 
+          <input type="checkbox" name="brand" value="투썸플레이스">투썸플레이스<br> 
+          <input type="checkbox" name="brand" value="all">전체 브랜드<br> 
+        </div>
+      
+        <div style="border:1px;float:left;width:33%;">
+          Sale type<br>
+          <input type="hidden" name="saletype" value="all">
+          <input type="checkbox" name="saletype" value="경매">경매<br> 
+          <input type="checkbox" name="saletype" value="급매">급매<br>
+          <input type="checkbox" name="saletype" value="all">전체<br>
+        </div>
+        <div style="border:1px;float:left;width:33%;text-align: center;">
+        <input type="submit">
+      </div>
+      </form></p>
+    </div>
+  <a onclick="this.parentNode.style.display='none';" href="javascript:void(0)">
+  </a></div></div>
+
+  <div style="border:1px ;float:left;width:25%;">
+  <a class="nav-link" href="{%url 'upload_file' %}" style="font-size: 25px;"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
+    Register</a></div>
+    <br><br><br>
 
 
 
-선택된 브랜드: {{selectedcategory.brand}}
-<br>
+
+<br><br><br><br>
 <select id="sort-select" onchange="location = this.value;">
   <option class="sort" value="/">정렬방식</option>
   <option class="sort-date" value="?sort=date">최신순</option>
@@ -54,61 +62,65 @@
 
 <!--Detail-->
 {% if details %}
-  {%ifequal details.saletype "경매"%} <!--경매-->
-  <div class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-          <img src="{{details.productimg.url}}" height="300" alt="" class="card-img" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">{{details.pbrand}}</h3>
-            <h4 class="card-title">{{details.pitem}}</h4>
-            <p class="card-text">
-              상품분류: {{details.saletype}}<br>
-              하한가:&nbsp{{details.lowerlimit}}<br>
-              입찰가: {{details.bidprice}}<br>
-              입찰자:{{details.biduser}}<br>
-              원가:&nbsp{{details.originalprice}}<br>
-              작성자:&nbsp{{details.user_id}}
-              <form method="POST" action="{%url 'auction' details.id %}">
-                  <input type="number" name="bidprice">
-                  <input type="submit">
-                </form></p>
-            
-            <a class="btn btn-primary" href="{%url 'buy' details.id%}" role="button">구매</a>
-            <a class="btn btn-primary" href="{%url 'upload_file' %}" role="button">상품등록</a>
-            <a class="btn btn-primary" href="{%url 'home' %}" role="button">돌아가기</a>
-          </div>
-        </div>
+<br><br><br><br><br><br>
+{%ifequal details.saletype "경매"%}
+<!--경매-->
+<div  class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="{{details.productimg.url}}" height="300" alt="" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h3 class="card-title">{{details.pbrand}}</h3>
+        <h4 class="card-title">{{details.pitem}}</h4>
+        <p class="card-text">
+          상품분류: {{details.saletype}}<br>
+          하한가:&nbsp{{details.lowerlimit}}<br>
+          입찰가: {{details.bidprice}}<br>
+          입찰자:{{details.biduser}}<br>
+          원가:&nbsp{{details.originalprice}}<br>
+          작성자:&nbsp{{details.user_id}}
+          <form method="POST" action="{%url 'auction' details.id %}">
+            <input type="number" name="bidprice">
+            <input type="submit">
+          </form>
+        </p>
+
+        <a class="btn btn-primary" href="{%url 'buy' details.id%}" role="button">구매</a>
+        <a class="btn btn-primary" href="{%url 'upload_file' %}" role="button">상품등록</a>
+        <a class="btn btn-primary" href="{%url 'home' %}" role="button">돌아가기</a>
       </div>
     </div>
+  </div>
+</div>
 
 
-  {%else%} <!--급매-->
-  <div class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-          <img src="{{details.productimg.url}}" height="300" alt="" class="card-img" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">{{details.pbrand}}</h3>
-            <h4 class="card-title">{{details.pitem}}</h4>
-            <p class="card-text">
-              상품분류: {{details.saletype}}<br>
-              판매가:&nbsp{{details.lowerlimit}}<br>
-              원가:&nbsp{{details.originalprice}}<br>
-              작성자:&nbsp{{details.user_id}}</p>
-            
-            <a class="btn btn-primary" href="{%url 'buy' details.id%}" role="button">구매</a>
-            <a class="btn btn-primary" href="{%url 'upload_file' %}" role="button">상품등록</a>
-            <a class="btn btn-primary" href="{%url 'home' %}" role="button">돌아가기</a>
-          </div>
-        </div>
+{%else%}
+<!--급매-->
+<div  class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="{{details.productimg.url}}" height="300" alt="" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h3 class="card-title">{{details.pbrand}}</h3>
+        <h4 class="card-title">{{details.pitem}}</h4>
+        <p class="card-text">
+          상품분류: {{details.saletype}}<br>
+          판매가:&nbsp{{details.lowerlimit}}<br>
+          원가:&nbsp{{details.originalprice}}<br>
+          작성자:&nbsp{{details.user_id}}</p>
+
+        <a class="btn btn-primary" href="{%url 'buy' details.id%}" role="button">구매</a>
+        <a class="btn btn-primary" href="{%url 'upload_file' %}" role="button">상품등록</a>
+        <a class="btn btn-primary" href="{%url 'home' %}" role="button">돌아가기</a>
       </div>
     </div>
-    {%endifequal%}
+  </div>
+</div>
+{%endifequal%}
 {%endif%}
 
 
@@ -121,6 +133,7 @@
       <h5 class="card-title">{{u.pitem}}</h5>
       <p class="card-text">{{u.lowerlimit}}</p>
       <a href="{%url 'home' 99999 u.id 99999 %}" class="button">Go somewhere</a>
+
     </div>
   </div>
   {%endfor%}

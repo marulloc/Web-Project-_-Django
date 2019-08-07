@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import check_password
+from .models import Profile
 
 @csrf_exempt
 def signup(request):
@@ -11,6 +12,7 @@ def signup(request):
         if request.POST['password1'] == request.POST['password2']:
             user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'],email=request.POST['email'])
             auth.login(request,user)
+
             return redirect('home') #redirect로 바꿔
     return render(request,'signup.html')
 
