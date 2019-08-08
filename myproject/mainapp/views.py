@@ -10,71 +10,55 @@ from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
 
 
-#category_id -> 브랜드 선택 , product_id -> 상품 선택, sale_id -> 판매 타입 선택
-#값이 99999면 선택되지 않은 default 상태임을 의미한다.
 class main:
     @csrf_exempt
-    def home( request, category_id=99999 , product_id=99999,sale_id=99999):
+    def home( request, flag=99999 , id_num=99999):
         print('####  START  ####')
-        print(category_id ,product_id,sale_id)
-
-        #여기서부터 시작
+        print(flag ,id_num)
+        print(request.method)
+   
         ufl = UploadFileModel.objects.all()
-
-
-        if request.method == 'POST':
-            select_brand = request.POST['brand']
-            select_sale = request.POST['saletype']
-
-            if select_brand != 'all':
-                ufl = ufl.filter(pbrand=select_brand)
-
-                if select_sale != 'all':
-                    ufl = ufl.filter(saletype=select_sale)
-
-                    
-            
-
-        if category_id != 99999:   #브랜드가 선택된다면             
-            selectedcategory = get_object_or_404(brand_for_category,pk=category_id)
-            ufl = UploadFileModel.objects.filter(pbrand = selectedcategory.brandname)
-        else:   #브랜드 선택안됨,
-            selectedcategory = None
-        
-        
-
-        if sale_id != 99999: #판매방식 선택됨
-            pass
-        else:
-            pass
-
-        if product_id != 99999:       #상품의 detail을 보려고 한다면,
-            details = get_object_or_404(UploadFileModel, pk=product_id)  
-        else:
-            details = None
-
-
         brand_for_categorys = brand_for_category.objects
 
-        #정렬부분
-        sort = request.GET.get('sort','')
-        if sort == 'lowprice':
-            ufl = ufl.order_by('lowerlimit')
-        elif sort == 'date':
-            ufl = UploadFileModel.objects.all().order_by('pub_date')
-        elif sort == 'highprice':
-            ufl = UploadFileModel.objects.all().order_by('-lowerlimit')
-        else:
-            ufl =  ufl
-
+        details = None
+        if flag==1: # datail
+            if id_num != 99999:
+                print("html에서 값을 제대로 지정하지 않음")
+            details = get_object_or_404(UploadFileModel, pk=id_num)  
+        
+        elif flag ==2: # sort
+            sort = id_num
+            if id_num == 2:
+                ufl = ufl.order_by('lowerlimit')
+            elif id_num == 1:
+                ufl = UploadFileModel.objects.all().order_by('pub_date')
+            elif id_num == 3:
+                ufl = UploadFileModel.objects.all().order_by('-lowerlimit')
+            else:
+                ufl = ufl
+            
+        else:    # 브랜드/상품 카테고리 선택
+            if request.method == 'POST':
+                select_brand = request.POST['brand']
+                select_sale = request.POST['saletype']
     
+                if select_brand != 'all':
+                    print(request.POST['brand'])
+                    ufl = ufl.filter(pbrand=select_brand)
+    
+                if select_sale != 'all':
+                    print(request.POST['saletype'])
+                    ufl = ufl.filter(saletype=select_sale)
+
+
         paginator = Paginator(ufl, 10)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
   
-        return render(request, 'home.html',{'selectedcategory':selectedcategory, 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details})
+        return render(request, 'home.html',{ 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details})
 
-
+def about(request):
+    return render(request,'about.html')
 
 @csrf_exempt
 @login_required

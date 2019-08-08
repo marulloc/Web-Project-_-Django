@@ -5,22 +5,24 @@
 {% block contents %}
 
 <!-- -----------------------------------------nav bar------------------------------------------------------------------------->
-<br><br><br>
+<p style="margin: 50px;"> &nbsp</p>
+  
 
-  <div style="border:1px ;float:left;width:25%;">
+<p>
+  <div style="border:1px ;float:left;width:25%;padding: 10px; border-bottom: 5px solid black;">
     <a class="nav-link" href="{%url 'home' %}" style="font-size: 25px;"> Home <span class="sr-only" >(current)</span></a>
   </div>
-  <div style="border:1px ;float:left;width:25%;">
-    <a class="nav-link" href="#" style="font-size: 25px;">About</a>
+  <div style="border:1px ;float:left;width:25%;padding: 10px; border-bottom: 5px solid black;">
+    <a class="nav-link" href="{%url 'about' %}" style="font-size: 25px;">About</a>
   </div>
-<div style="border:1px ;float:left;width:25%;">
+<div style="border:1px ;float:left;width:25%;padding: 10px; border-bottom: 5px solid black;">
 <a class="nav-link" onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';"
   href="javascript:void(0)" style="font-size: 25px;" >
   Search
 </a><div style="DISPLAY: none">
   <div class="card" style="border:1px ;width:100%;background-color: rgba( 255, 255, 255, 1 );" >
       <p><form action="{%url 'home' %}" method="POST">{% csrf_token %}
-        <div style="border:1px ;float:left;width:33%;">
+        <div style="border-right: 3px solid gray ;float:left;margin-left: 1px;margin-right: 10px;width: 50%;">
           Brand<br> 
           <input type="hidden" name="brand" value="all">
           <input type="checkbox" name="brand" value="스타벅스">스타벅스<br> 
@@ -28,41 +30,34 @@
           <input type="checkbox" name="brand" value="all">전체 브랜드<br> 
         </div>
       
-        <div style="border:1px;float:left;width:33%;">
+        <div style="float:left;margin-left: 10px;width: 45%;">
           Sale type<br>
           <input type="hidden" name="saletype" value="all">
           <input type="checkbox" name="saletype" value="경매">경매<br> 
           <input type="checkbox" name="saletype" value="급매">급매<br>
           <input type="checkbox" name="saletype" value="all">전체<br>
         </div>
-        <div style="border:1px;float:left;width:33%;text-align: center;">
-        <input type="submit">
+        <div >
+        <input class="button" type="submit" style=" margin-top: 10px; border-radius: 12px;" value="Search!">
       </div>
       </form></p>
     </div>
   <a onclick="this.parentNode.style.display='none';" href="javascript:void(0)">
   </a></div></div>
 
-  <div style="border:1px ;float:left;width:25%;">
+  <div style="border:1px ;float:left;width:25%;padding: 10px; border-bottom: 5px solid black;">
   <a class="nav-link" href="{%url 'upload_file' %}" style="font-size: 25px;"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
     Register</a></div>
-    <br><br><br>
+  </p>
+
+ <p style="margin: 150px;">&nbsp</p>
 
 
 
-
-<br><br><br><br>
-<select id="sort-select" onchange="location = this.value;">
-  <option class="sort" value="/">정렬방식</option>
-  <option class="sort-date" value="?sort=date">최신순</option>
-  <option class="sort-lowprice" value="?sort=lowprice">낮은가격순</option>
-  <option class="sort-highprice" value="?sort=highprice">높은가격순</option>
-</select>
 
 
 <!--Detail-->
 {% if details %}
-<br><br><br><br><br><br>
 {%ifequal details.saletype "경매"%}
 <!--경매-->
 <div  class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
@@ -124,36 +119,51 @@
 {%endif%}
 
 
+
+<p style="text-align: right; grid-gap: 1rem; margin-right: 10rem;">
+<a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 1 %}" >
+  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>최신순&nbsp&nbsp
+</a>
+<a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 2 %}" >낮은가격순&nbsp&nbsp </a>
+<a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 3 %}" >높은가격순 </a>
+</p>
+
+
 <div class="card-group">
   {% for u in posts %}
-  <div class="card">
+  <a href="{%url 'home' 1 u.id %}" style="text-decoration: none;" class="button">
+  <div class="card" style="border-color: rgba(255,255,255,1);">
     <img src="{{u.productimg.url}}" height="300" alt="">
     <div class="card-body">
       <h5 class="card-title">{{u.pbrand}}</h5>
       <h5 class="card-title">{{u.pitem}}</h5>
       <p class="card-text">{{u.lowerlimit}}</p>
-      <a href="{%url 'home' 99999 u.id 99999 %}" class="button">Go somewhere</a>
+ 
 
     </div>
-  </div>
+  </div></a>
   {%endfor%}
 </div><br>
 
-<div class="container">
 
-  {% if posts.has_previous %}
-  <a href="?page=1">First</a>
-  <a href="?page={{posts.previous_page_number}}">Prev</a>
-  {% endif %}
-
-  <span>{{posts.number}}</span>
-  <span> of</span>
-  <span> {{posts.paginator.num_pages}}</span>
-
-  {%if posts.has_next%}
-  <a href="?page={{posts.next_page_number}}">Next</a>
-  <a href="?page={{posts.paginator.num_pages}}">Last</a>
-  {% endif %}
-</div>
+<nav>
+    <ul class="pager">
+      {% if posts.has_previous %}
+      <li><a href="?page={{posts.previous_page_number}}">Prev</a></li>
+      {%else%}
+      <li class="previous disabled"><a href="#">Prev</a></li>
+      {% endif %}    
+    
+      <span>&nbsp&nbsp{{posts.number}}</span>
+      <span> of</span>
+      <span> {{posts.paginator.num_pages}}&nbsp&nbsp</span>
+  
+      {%if posts.has_next%}
+      <li><a href="?page={{posts.next_page_number}}">Next</a></li>
+      {%else%}
+      <li class="next disabled"><a href="#">Next</a></li>
+      {% endif %}    
+      </ul>
+  </nav>
 
 {%endblock%}
